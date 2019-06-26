@@ -35,7 +35,25 @@ hex		0[xX]{hextail}
 ">"			printf("GT\n"); ++num_pos;
 "<="			printf("LTE\n"); num_pos += yyleng;
 ">="			printf("GTE\n"); num_pos += yyleng; 
+";"			printf("SEMICOLON\n"); num_pos += yyleng;
+":"			printf("COLON\n"); num_pos += yyleng;
+","			printf("COMMA\n"); num_pos += yyleng;
+":="			printf("ASSIGN\n"); num_pos += yyleng;
 "\n"			num_line++; num_pos = 0;
+"program"		printf("PROGRAM\n"); num_pos += yyleng;
+"beginprogram"		printf("BEGIN_PROGRAM\n"); num_pos += yyleng;
+"endprogram"		printf("END_PROGRAM\n"); num_pos += yyleng;
+"integer"		printf("INTEGER\n"); num_pos += yyleng;
+"array"			printf("ARRAY\n"); num_pos += yyleng;
+"of"			printf("OF\n"); num_pos += yyleng;
+"if"			printf("IF\n"); num_pos += yyleng;
+"then"			printf("THEN\n"); num_pos += yyleng;
+"endif"			printf("ENDIF\n"); num_pos += yyleng;
+"else"			printf("ELSE\n"); num_pos += yyleng;
+"while"			printf("WHILE\n"); num_pos += yyleng;
+"do"			printf("DO\n"); num_pos += yyleng;
+"beginloop"		printf("BEGINLOOP\n"); num_pos += yyleng;
+
 .			printf("Unrecognizable string %s at line %d at position %d\n", yytext,num_line,num_pos); exit(1);
 %%
 
