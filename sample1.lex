@@ -15,9 +15,9 @@
 /* need this for the call to getlogin() below */
 #include <unistd.h>
 %}
-
+%option noyywrap
 %%
-username	printf("%s\n", getlogin());
+username 	printf("%s\n", getlogin());
 %%
 
 main()
