@@ -10,8 +10,11 @@ hex		0[xX]{hextail}
 
 
 %{
+	#include <iostream>
 	#include <stdlib.h>
 	#include <stdio.h>
+	#include <fstream>
+	#include <string>
 %}
 %option noyywrap
 	int num_pos = 0; int num_line = 0;
@@ -31,7 +34,8 @@ hex		0[xX]{hextail}
 int main(int argc,char* argv[])
 {
 	if(argc >= 2){
-
+		string file_name = argv[1];
+		
 	}else{
 		printf("Give me your input:\n");
 		yylex();
