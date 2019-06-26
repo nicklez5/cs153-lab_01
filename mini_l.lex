@@ -3,8 +3,8 @@
  * Pattern: 0[xX]([0-9a-fA-F]{1,8})
  */
 
-digit		[0.000-9.000]
-alpha		[a-fA-F]
+digit		[0-9]
+alpha		[a-zA-Z]
 hextail		({digit}|{alpha}){1,8}
 hex		0[xX]{hextail}
 
@@ -21,7 +21,7 @@ hex		0[xX]{hextail}
 	int num_parentheses = 0;
 	int num_equal = 0;
 %%
-{digit}+		printf("NUMBER %s\n",yytext); num_pos += yyleng; num_int++;		 
+({digit}+)		printf("NUMBER %s\n",yytext); num_pos += yyleng; num_int++;		 
 "+"			printf("PLUS\n"); ++num_pos; num_op++;
 "-"			printf("SUB\n"); ++num_pos; num_op++;
 "*"			printf("MULT\n");  ++num_pos; num_op++;
@@ -53,8 +53,21 @@ hex		0[xX]{hextail}
 "while"			printf("WHILE\n"); num_pos += yyleng;
 "do"			printf("DO\n"); num_pos += yyleng;
 "beginloop"		printf("BEGINLOOP\n"); num_pos += yyleng;
-
+"endloop"		printf("ENDLOOP\n"); num_pos += yyleng;
+"continue"		printf("CONTINUE\n"); num_pos += yyleng;
+"read"			printf("CONTINUE\n"); num_pos += yyleng;
+"write"			printf("READ\n"); num_pos += yyleng;
+"and"			printf("AND\n"); num_pos += yyleng;
+"or"			printf("OR\n"); num_pos += yyleng;
+"not"			printf("NOT\n"); num_pos += yyleng;
+"true"			printf("TRUE\n"); num_pos += yyleng;
+"false"			printf("FALSE\n"); num_pos += yyleng;
+({alpha}+)|({alpha}+({alpha}|{digit}*){alpha}+)|({alpha}+[_]{alpha}+)|({alpha}+[_]{digit}+)		printf("IDENT %s \n",yytext); num_pos += yyleng;
+({digit}+({alpha}))	printf("Error at line %d, column %d: identifier %s must begin with a letter\n",num_line,num_pos,yytext); exit(1);
+({alpha}+([_]))		printf("Error at line %d, column %d: identifier %s cannot end with an underscore\n",num_line,num_pos,yytext); exit(1);
 .			printf("Unrecognizable string %s at line %d at position %d\n", yytext,num_line,num_pos); exit(1);
+
+
 %%
 
 int main(int argc,char* argv[])
