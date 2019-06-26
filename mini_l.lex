@@ -55,13 +55,15 @@ hex		0[xX]{hextail}
 "beginloop"		printf("BEGINLOOP\n"); num_pos += yyleng;
 "endloop"		printf("ENDLOOP\n"); num_pos += yyleng;
 "continue"		printf("CONTINUE\n"); num_pos += yyleng;
-"read"			printf("CONTINUE\n"); num_pos += yyleng;
-"write"			printf("READ\n"); num_pos += yyleng;
+"read"			printf("READ\n"); num_pos += yyleng;
+"write"			printf("WRITE\n"); num_pos += yyleng;
 "and"			printf("AND\n"); num_pos += yyleng;
 "or"			printf("OR\n"); num_pos += yyleng;
 "not"			printf("NOT\n"); num_pos += yyleng;
 "true"			printf("TRUE\n"); num_pos += yyleng;
 "false"			printf("FALSE\n"); num_pos += yyleng;
+[ \t]+			num_pos += yyleng;
+[#]+			num_pos += yyleng;
 ({alpha}+)|({alpha}+({alpha}|{digit}*){alpha}+)|({alpha}+[_]{alpha}+)|({alpha}+[_]{digit}+)		printf("IDENT %s \n",yytext); num_pos += yyleng;
 ({digit}+({alpha}))	printf("Error at line %d, column %d: identifier %s must begin with a letter\n",num_line,num_pos,yytext); exit(1);
 ({alpha}+([_]))		printf("Error at line %d, column %d: identifier %s cannot end with an underscore\n",num_line,num_pos,yytext); exit(1);
