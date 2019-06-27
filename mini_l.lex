@@ -63,7 +63,7 @@ hex		0[xX]{hextail}
 "true"			printf("TRUE\n"); num_pos += yyleng;
 "false"			printf("FALSE\n"); num_pos += yyleng;
 [ \t]+			num_pos += yyleng;
-[#]+			num_pos += yyleng;
+([#]+({alpha}+|[ \t]+|{digit}+)*)			num_pos += yyleng;
 ({alpha}+)|({alpha}+({alpha}|{digit}*){alpha}+)|({alpha}+[_]{alpha}+)|({alpha}+[_]{digit}+)		printf("IDENT %s \n",yytext); num_pos += yyleng;
 ({digit}+({alpha}))	printf("Error at line %d, column %d: identifier %s must begin with a letter\n",num_line,num_pos,yytext); exit(1);
 ({alpha}+([_]))		printf("Error at line %d, column %d: identifier %s cannot end with an underscore\n",num_line,num_pos,yytext); exit(1);
